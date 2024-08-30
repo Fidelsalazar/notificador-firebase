@@ -1,0 +1,66 @@
+html {
+    font-size: 14px;
+  }
+  
+  body {
+    font-family: var(--font-family);
+    font-weight: normal;
+    background: var(--surface-ground);
+    color: var(--text-color);
+    padding: 1rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    pointer-events: all;
+  }
+  
+  .continer {
+    position: fixed;
+    /* Cambiado de 'center' a 'fixed' para posicionar respecto a la ventana */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    /* Asegúrate de que cubra todo el ancho */
+    height: 100%;
+    /* Asegúrate de que cubra toda la altura */
+    background-image: url('../../../assets/CNEA.jpg');
+    /* La imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    /* Coloca el fondo detrás de otros elementos */
+  }
+  
+  
+  .container{
+    display: flex;
+    flex-direction: row;
+    padding: 10%;
+  }
+  
+  .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid white;
+    border-radius: 20px;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+    color: #000;;
+  
+    width: 600px;
+  }
+  
+  sign-in{
+   margin-left: 40px;
+  }
+  
+  body.background-image {
+    background-image: url('../../../assets/CNEA.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  

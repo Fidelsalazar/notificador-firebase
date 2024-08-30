@@ -1,0 +1,52 @@
+html {
+  font-size: 14px;
+}
+
+body {
+  font-family: var(--font-family);
+  font-weight: normal;
+  background: var(--surface-ground);
+  color: var(--text-color);
+  padding: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  pointer-events: all;
+}
+
+.container { /* Usar el nombre de clase correcto y unificar */
+  display: flex;
+  flex-direction: row;
+  padding: 10%;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../assets/CNEA.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; /* Asegura que el fondo esté detrás de otros elementos */
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid white;
+  border-radius: 20px;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+  color: #000;
+  width: 600px;
+  z-index: 1; /* Asegura que la tarjeta esté por encima del fondo */
+}
+
+.sign-in { /* Cambia a una clase o utiliza un selector adecuado */
+  margin-left: 40px;
+}

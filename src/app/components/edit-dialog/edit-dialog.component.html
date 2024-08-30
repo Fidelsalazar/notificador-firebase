@@ -1,0 +1,294 @@
+<h1 mat-dialog-title>Editar {{use}}</h1>
+
+<div #container></div>
+
+<!-- Plantillas -->
+
+<ng-template #newEmployee>
+  <div class="card flex flex-column md:flex-row gap-3">
+    <form
+      [formGroup] = "employeeForm"
+      (ngSubmit)="send()"
+    >
+      <div class="formDist">
+        <div>
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              Inicion en MT
+            </p-inputGroupAddon>
+            <p-calendar
+              formControlName="fechaEntrada"
+              placeholder="Inicion en MT"
+              [showIcon]="true"
+            ></p-calendar>
+          </p-inputGroup>
+          <mat-hint *ngIf="employeeForm.get('fechaEntrada')?.invalid && employeeForm.get('fechaEntrada')?.touched">
+            <span *ngIf="employeeForm.get('fechaEntrada')?.hasError('required')">Este campo es requerido.</span>
+          </mat-hint>
+          <br/>
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              Inicio en EDU
+            </p-inputGroupAddon>
+            <p-calendar
+              formControlName="fechaEntradEdu"
+              placeholder="Inicio en EDU"
+              [showIcon]="true"
+            ></p-calendar>
+          </p-inputGroup>
+          <mat-hint *ngIf="employeeForm.get('fechaEntradEdu')?.invalid && employeeForm.get('fechaEntradEdu')?.touched">
+            <span *ngIf="employeeForm.get('fechaEntradEdu')?.hasError('required')">Este campo es requerido.</span>
+          </mat-hint>
+          <br/>
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              Inicio en CNEA
+            </p-inputGroupAddon>
+            <p-calendar
+              formControlName="fechaEntradaCNEA"
+              placeholder="Inicio en CNEA"
+              [showIcon]="true"
+            ></p-calendar>
+          </p-inputGroup>
+          <mat-hint *ngIf="employeeForm.get('fechaEntradaCNEA')?.invalid && employeeForm.get('fechaEntradaCNEA')?.touched">
+            <span *ngIf="employeeForm.get('fechaEntradaCNEA')?.hasError('required')">Este campo es requerido.</span>
+          </mat-hint>
+          <br/>
+
+          <p-inputGroup>
+          <p-inputGroupAddon>
+            ID Empleado
+          </p-inputGroupAddon>
+            <input pInputText placeholder="ID Empleado" formControlName="idEmpleado" />
+          </p-inputGroup>
+
+          <mat-hint *ngIf="employeeForm.get('idEmpleado')?.invalid && employeeForm.get('idEmpleado')?.touched">
+                <span *ngIf="employeeForm.get('idEmpleado')?.hasError('required')">Este campo es requerido.</span>
+                <span *ngIf="employeeForm.get('idEmpleado')?.hasError('minLength')">El ID debe tener al menos 4 caracteres.</span>
+          </mat-hint>
+          <br/>
+        </div>
+
+        <div>
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              CI
+            </p-inputGroupAddon>
+            <input
+              pInputText placeholder="Carnet de Identidad"
+              formControlName="noCI"
+            />
+          </p-inputGroup>
+          <mat-hint *ngIf="employeeForm.get('noCI')?.invalid && employeeForm.get('noCI')?.touched">
+                <span *ngIf="employeeForm.get('noCI')?.hasError('required')">Este campo es requerido.</span>
+                <span *ngIf="employeeForm.get('noCI')?.hasError('pattern')">El CI debe tener 11 caracteres numéricos.</span>
+          </mat-hint>
+          <br/>
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+            Nombre
+            </p-inputGroupAddon>
+            <input
+              pInputText placeholder="Nombre "
+              formControlName="nombre"
+            />
+          </p-inputGroup>
+          <mat-hint *ngIf="employeeForm.get('nombre')?.invalid && employeeForm.get('nombre')?.touched">
+                <span *ngIf="employeeForm.get('nombre')?.hasError('required')">Este campo es requerido.</span>
+                <span *ngIf="employeeForm.get('nombre')?.hasError('maxLength')">El nombre no debe tenr mas de 50 caracteres.</span>
+          </mat-hint>
+          <br/>
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              1er Apellido
+            </p-inputGroupAddon>
+            <input
+              pInputText placeholder="Primer Apellido"
+              formControlName="apellido1"
+            />
+          </p-inputGroup>
+          <mat-hint *ngIf="employeeForm.get('apellido1')?.invalid && employeeForm.get('apellido1')?.touched">
+                <span *ngIf="employeeForm.get('apellido1')?.hasError('required')">Este campo es requerido.</span>
+                <span *ngIf="employeeForm.get('apellido1')?.hasError('maxLength')">El nombre no debe tenr más de 50 caracteres.</span>
+          </mat-hint>
+          <br/>
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              2do Apellido
+            </p-inputGroupAddon>
+            <input
+              pInputText placeholder="Segundo Apellido"
+              formControlName="apellido2"
+            />
+          </p-inputGroup>
+          <mat-hint *ngIf="employeeForm.get('apellido2')?.invalid && employeeForm.get('apellido2')?.touched">
+                <span *ngIf="employeeForm.get('apellido2')?.hasError('required')">Este campo es requerido.</span>
+                <span *ngIf="employeeForm.get('apellido2')?.hasError('maxLength')">El nombre no debe tenr más de 50 caracteres.</span>
+          </mat-hint>
+        </div>
+      </div>
+
+    <div
+      class="card flex justify-content-center gap-3"
+      style="display: flex; flex-direction: row; flex-wrap: wrap;"
+    >
+      <div class="flex align-items-center">
+        <p-checkbox
+          formControlName="cuadro"
+          name="cuadro"
+          label=" Es cuadro"
+          value="true"
+        />
+      </div>
+
+      <div class="flex align-items-center">
+        <p-checkbox
+          formControlName="sexo"
+          label="Sexo Masculino"
+          name="sexo"
+          value="M"
+          (change)="onGenderChange($event)"
+          [disabled]="femaleChecked">
+        </p-checkbox>
+      </div>
+
+      <div class="flex align-items-center">
+        <p-checkbox
+          formControlName="sexo"
+          label="Sexo Femenino"
+          name="femenino"
+          value="F"
+          (change)="onGenderChange($event)"
+          [disabled]="maleChecked">
+        </p-checkbox>
+      </div>
+
+      <mat-hint *ngIf="employeeForm.get('sexo')?.invalid && employeeForm.get('sexo')?.touched">
+        <span *ngIf="employeeForm.get('sexo')?.hasError('required')">El sexo es un campo requerido.</span>
+      </mat-hint>
+
+    </div>
+
+      <br/>
+      <div class="card flex justify-content-center button">
+        <p-button label="Cancelar" severity="danger"  (onClick)="close()"/>
+        <p-button type="submit" label="Enviar" />
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #newMedal>
+  <div class="card flex flex-column md:flex-row gap-3">
+    <form
+      [formGroup] = "employeeForm"
+      (ngSubmit)="send()"
+    >
+      <div >
+        <div>
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              Condecoración
+            </p-inputGroupAddon>
+            <input
+              pInputText placeholder="Titulo de la condecoración"
+              formControlName="name"
+            />
+          </p-inputGroup>
+          <br/>
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              Institución
+            </p-inputGroupAddon>
+            <input
+              pInputText placeholder="Institución que otorga la condecoración "
+              formControlName="institucion"
+            />
+          </p-inputGroup>
+          <br/>
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              Tiempo de trabajo necesario
+            </p-inputGroupAddon>
+            <input
+              pInputText
+              placeholder="Carnet de Identidad"
+              formControlName="noCI"
+            />
+          </p-inputGroup>
+          <br/>
+
+
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              1er Apellido
+            </p-inputGroupAddon>
+            <input
+              pInputText placeholder="Primer Apellido"
+              formControlName="apellido1"
+            />
+          </p-inputGroup>
+          <br/>
+
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              2do Apellido
+            </p-inputGroupAddon>
+            <input
+              pInputText placeholder="Segundo Apellido"
+              formControlName="apellido2"
+            />
+          </p-inputGroup>
+        </div>
+      </div>
+
+    <div
+      class="card flex justify-content-center gap-3"
+      style="display: flex; flex-direction: row; flex-wrap: wrap;"
+    >
+      <div class="flex align-items-center">
+        <p-checkbox
+          formControlName="cuadro"
+          name="cuadro"
+          label="Es cuadro"
+          (change)="onCuadroChange($event)"
+        />
+      </div>
+
+      <div class="flex align-items-center">
+        <p-checkbox
+          formControlName="sexo"
+          label="Sexo Masculino"
+          name="sexo"
+          (change)="onSexoChange($event, 'M')"
+        />
+     </div>
+
+      <div class="flex align-items-center">
+        <p-checkbox
+          formControlName="sexo"
+          label="Sexo Femenino"
+          name="femenino"
+          (change)="onSexoChange($event, 'F')"
+        />
+      </div>
+    </div>
+
+      <br/>
+      <div class="card flex justify-content-center button">
+        <p-button label="Cancelar" severity="danger"  (onClick)="close()"/>
+        <p-button type="submit" label="Enviar" />
+      </div>
+    </form>
+  </div>
+</ng-template>
+

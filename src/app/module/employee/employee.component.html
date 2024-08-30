@@ -1,0 +1,95 @@
+<app-navbar></app-navbar>
+<div class="card">
+    <p-toast />
+    <p-table [value]="customers" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+        <ng-template pTemplate="caption">
+            <div class="flex flex-wrap justify-content-end gap-2">
+              <p-button label="Expandir Todo" icon="pi pi-plus" text (onClick)="expandAll()" />
+              <p-button label="Colapsar Todo" icon="pi pi-minus" text (onClick)="collapseAll()" />
+              <p-button
+              label="Nuevo Trabajador"
+              icon="pi pi-plus"
+              text
+              (onClick)="openDialog( 'create', 'Empleado', 'new' )" />
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 5rem"></th>
+                <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
+                <th pSortableColumn="name">Nombre <p-sortIcon field="name" /></th>
+                <th>Foto</th>
+                <th pSortableColumn="price">Sexo <p-sortIcon field="price" /></th>
+                <th pSortableColumn="rating">Tiempo de trabajo <p-sortIcon field="rating" /></th>
+                <th pSortableColumn="inventoryStatus">Tiempo de trabajo en EDU <p-sortIcon field="inventoryStatus" /></th>
+                <th pSortableColumn="inventoryStatus">Tiempo de trabajo en el CENEA <p-sortIcon field="inventoryStatus" /></th>
+                <th></th>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer let-expanded="expanded">
+            <tr>
+                <td>
+                    <p-button type="button" pRipple [pRowToggler]="customer" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                </td>
+                <td>{{ customer.idEmpleado }}</td>
+                <td>
+                  {{ customer.nombre }}
+                  {{ customer.apellido1 }}
+                  {{ customer.apellido2 }}
+                </td>
+                <td></td>
+                <td></td>
+                <td>{{ customer.fechaEntrada | date: 'dd-MM-yyyy' }}</td>
+                <td>{{ customer.fechaEntradEdu | date: 'dd-MM-yyyy' }}</td>
+                <td>{{ customer.fechaEntradaCNEA | date: 'dd-MM-yyyy' }}</td>
+                <td>
+                                      <p-button
+                                        [text]="true"
+                                        (onClick)="deleteAire(customer)"
+                                      >
+                                        <span class="pi pi-trash"></span>
+                                      </p-button>
+                                    </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-product>
+            <tr>
+                <td colspan="7" class="">
+                    <div class="p-3 conde ">
+                        <p-table [value]="product.medals" dataKey="id">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="customer">Medalla <p-sortIcon field="customer" /></th>
+                                    <th pSortableColumn="customer">Entrega <p-sortIcon field="customer" /></th>
+                                    <th pSortableColumn="date">Fecha de solicitud <p-sortIcon field="date" /></th>
+                                    <th pSortableColumn="amount">Fecha de entregado<p-sortIcon field="amount" /></th>
+                                    <th pSortableColumn="resolution"># Resolución<p-sortIcon field="amount" /></th>
+                                    <th pSortableColumn="status">Estado <p-sortIcon field="status" /></th>
+                                    <th></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-order class="conde">
+                                <tr>
+                                    <td>{{ order.name }}</td>
+                                    <td>{{ order.entrega  }}</td>
+                                    <td>{{ order.fechaEntrega | date: 'dd-MM-yyyy'}}</td>
+                                    <td>{{ order.fechaSolicitud | date: 'dd-MM-yyyy' }}</td>
+                                    <td>{{ order. resolution }}</td>
+                                    <td>
+                                        <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="6">Este empleado no tiene medallas</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+  </div>

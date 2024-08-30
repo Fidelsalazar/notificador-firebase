@@ -1,0 +1,76 @@
+<app-navbar></app-navbar>
+
+<br>
+
+<div>
+  <h3>
+    {{menuItemLabel}}
+  </h3>
+</div>
+
+<div class="mb-3">
+    <p-button
+        type="button"
+        icon="pi pi-chevron-left"
+        (click)="prev()"
+        [disabled]="isFirstPage()"
+        styleClass="p-button-text" />
+    <p-button
+        type="button"
+        icon="pi pi-refresh"
+        (onClick)="reset()"
+        styleClass="p-button-text" />
+    <p-button
+        type="button"
+        icon="pi pi-chevron-right"
+        (click)="next()"
+        [disabled]="isLastPage()"
+        styleClass="p-button-text" />
+</div>
+<div class="card">
+    <p-table
+        [value]="customers"
+        [paginator]="true"
+        [rows]="5"
+        [first]="first"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        (onPage)="pageChange($event)"
+        [rowsPerPageOptions]="[10, 25, 50]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:25%">ID</th>
+                <th style="width:25%">Nombre</th>
+                <th style="width:25%">Institución</th>
+                <th style="width:25%">Tiempo de trabajo</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.country.name }}</td>
+                <td>{{ customer.company }}</td>
+                <td>{{ customer.representative.name }}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="6">Esta medalla no ha sido asignada a ningun empleado</td>
+                                </tr>
+                            </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button
+              type="button"
+              icon="pi pi-plus"
+              styleClass="p-button-text"
+              (onClick)="newMedal('create', 'Medalla', 'new')"
+            />
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text" />
+        </ng-template>
+    </p-table>
+</div>
